@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AquaJets Cullera — Excursiones en Moto Acuática</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0a1628;
+      --navy-mid: #0d1f3c;
+      --navy-light: #122244;
+      --blue: #1a3a6b;
+      --accent: #1e88e5;
+      --accent2: #00b4d8;
+      --gold: #c9a84c;
+      --white: #ffffff;
+      --light: #f0f4fa;
+      --gray: #8a9ab5;
+      --font-main: 'Montserrat', sans-serif;
+      --font-serif: 'Playfair Display', serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-main); background: var(--white); color: var(--navy); overflow-x: hidden; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 60px;
+      transition: background 0.4s, padding 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(10,22,40,0.97);
+      backdrop-filter: blur(12px);
+      padding: 12px 60px;
+      box-shadow: 0 2px 30px rgba(0,0,0,0.3);
+    }
+    .nav-logo {
+      text-decoration: none; display: flex; align-items: center;
+    }
+    .nav-logo img {
+      height: 64px; width: auto; object-fit: contain;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
+    }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 500;
+      text-decoration: none; letter-spacing: 1px; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent2); }
+    .nav-cta {
+      position: relative; overflow: hidden;
+      background: linear-gradient(135deg, rgba(0,180,216,0.82) 0%, rgba(0,210,250,0.75) 100%);
+      border: 1px solid rgba(0,220,255,0.55);
+      color: var(--navy); font-size: 13px;
+      font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+      padding: 10px 26px; border-radius: 50px; text-decoration: none;
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 3px 14px rgba(0,180,216,0.45), inset 0 1px 0 rgba(255,255,255,0.55), inset 0 -1px 0 rgba(0,0,0,0.08);
+      transition: all 0.25s ease;
+    }
+    .nav-cta::before {
+      content: ''; pointer-events: none; position: absolute;
+      top: 0; left: 0; right: 0; height: 48%;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.32), transparent);
+      border-radius: 50px 50px 0 0; z-index: 1;
+    }
+    .nav-cta:hover { background: linear-gradient(135deg,rgba(0,210,245,0.95),rgba(0,230,255,0.9)); transform: translateY(-2px); box-shadow: 0 7px 22px rgba(0,180,216,0.6), inset 0 1px 0 rgba(255,255,255,0.6); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 24px; height: 2px; background: white; display: block; }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative; height: 100vh; min-height: 700px;
+      display: flex; align-items: center; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; overflow: hidden;
+      background: radial-gradient(ellipse at 60% 40%, #0a4a6e 0%, #062840 40%, #021a2e 100%);
+    }
+    .hero-bg::before {
+      content: '';
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse at 30% 70%, rgba(0,100,150,0.4) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(0,150,180,0.25) 0%, transparent 50%);
+    }
+    .hero-bg video {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      z-index: 1;
+      mix-blend-mode: screen;
+      opacity: 0.9;
+    }
+    .hero-bg::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 180px; z-index: 2;
+      background: linear-gradient(to top, #ffffff 0%, transparent 100%);
+    }
+    .hero-content {
+      position: relative; z-index: 2; padding: 0 60px; max-width: 720px;
+    }
+    .hero-tag {
+      display: inline-block; background: var(--accent2); color: var(--navy);
+      font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+      padding: 6px 18px; border-radius: 20px; margin-bottom: 24px;
+    }
+    .hero-title {
+      font-family: var(--font-serif); font-size: clamp(42px, 5.5vw, 72px);
+      font-weight: 700; color: var(--white); line-height: 1.1; margin-bottom: 20px;
+    }
+    .hero-title span { color: var(--accent2); }
+    .hero-subtitle {
+      font-size: 16px; color: rgba(255,255,255,0.78); line-height: 1.7;
+      margin-bottom: 40px; max-width: 520px; font-weight: 300;
+    }
+    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      position: relative; overflow: hidden;
+      background: linear-gradient(135deg, rgba(0,180,216,0.85) 0%, rgba(0,212,250,0.78) 100%);
+      border: 1px solid rgba(0,225,255,0.55);
+      color: var(--navy); font-size: 13px; font-weight: 700;
+      letter-spacing: 1px; text-transform: uppercase;
+      padding: 15px 36px; border-radius: 50px; text-decoration: none;
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      transition: all 0.25s ease; display: inline-flex; align-items: center; gap: 8px;
+      box-shadow: 0 4px 20px rgba(0,180,216,0.45), inset 0 1px 0 rgba(255,255,255,0.55), inset 0 -1px 0 rgba(0,0,0,0.08);
+    }
+    .btn-primary::before {
+      content: ''; pointer-events: none; position: absolute;
+      top: 0; left: 0; right: 0; height: 48%;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.32), transparent);
+      border-radius: 50px 50px 0 0; z-index: 1;
+    }
+    .btn-primary:hover { background: linear-gradient(135deg,rgba(0,210,245,0.95),rgba(0,230,255,0.9)); transform: translateY(-2px); box-shadow: 0 10px 32px rgba(0,180,216,0.6), inset 0 1px 0 rgba(255,255,255,0.6); }
+
+    .btn-outline {
+      position: relative; overflow: hidden;
+      background: rgba(255,255,255,0.07);
+      border: 1.5px solid rgba(255,255,255,0.28);
+      color: var(--white); font-size: 13px; font-weight: 600;
+      letter-spacing: 1px; text-transform: uppercase;
+      padding: 13px 34px; border-radius: 50px; text-decoration: none;
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      transition: all 0.25s ease; display: inline-flex; align-items: center; gap: 8px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.2);
+    }
+    .btn-outline::before {
+      content: ''; pointer-events: none; position: absolute;
+      top: 0; left: 0; right: 0; height: 48%;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.18), transparent);
+      border-radius: 50px 50px 0 0; z-index: 1;
+    }
+    .btn-outline:hover { background: rgba(0,180,216,0.15); border-color: rgba(0,180,216,0.55); color: var(--accent2); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.25); }
+    .hero-scroll {
+      position: absolute; bottom: 80px; left: 60px; z-index: 2;
+      display: flex; align-items: center; gap: 12px; color: rgba(255,255,255,0.5);
+      font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+    }
+    .scroll-line { width: 50px; height: 1px; background: rgba(255,255,255,0.3); }
+
+    /* ── STATS RIBBON ── */
+    .stats-ribbon {
+      background: var(--navy); padding: 50px 60px;
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 20px; text-align: center;
+    }
+    .stat-item { padding: 10px; }
+    .stat-num {
+      font-family: var(--font-serif); font-size: 52px; font-weight: 700;
+      color: var(--white); line-height: 1; margin-bottom: 8px;
+    }
+    .stat-num span { color: var(--accent2); }
+    .stat-label { font-size: 12px; color: var(--gray); letter-spacing: 2px; text-transform: uppercase; }
+
+    /* ── ABOUT ── */
+    #sobre {
+      padding: 100px 60px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .about-imgs {
+      display: flex; align-items: center; justify-content: center;
+      height: auto; overflow: hidden;
+    }
+    .about-tag {
+      display: inline-block; background: transparent; border: 1px solid var(--accent);
+      color: var(--accent); font-size: 11px; font-weight: 700; letter-spacing: 3px;
+      text-transform: uppercase; padding: 6px 18px; border-radius: 20px; margin-bottom: 20px;
+    }
+    .about-title {
+      font-family: var(--font-serif); font-size: clamp(30px, 3vw, 44px);
+      font-weight: 700; color: var(--navy); line-height: 1.2; margin-bottom: 20px;
+    }
+    .about-text { font-size: 15px; color: #4a5568; line-height: 1.8; margin-bottom: 28px; }
+    .about-checks { list-style: none; margin-bottom: 36px; display: flex; flex-direction: column; gap: 12px; }
+    .about-checks li {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 14px; color: #2d3748; font-weight: 500;
+    }
+    .check-icon {
+      width: 22px; height: 22px; background: var(--accent2);
+      color: white; border-radius: 50%; display: inline-flex; align-items: center;
+      justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0;
+    }
+
+    /* ── SERVICIOS ── */
+    #servicios { background: var(--navy); padding: 100px 60px; }
+    .section-header { text-align: center; margin-bottom: 60px; }
+    .section-tag {
+      display: inline-block; background: rgba(0,180,216,0.15); color: var(--accent2);
+      font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+      padding: 6px 18px; border-radius: 20px; margin-bottom: 16px; border: 1px solid rgba(0,180,216,0.3);
+    }
+    .section-title {
+      font-family: var(--font-serif); font-size: clamp(30px, 3vw, 44px);
+      font-weight: 700; color: var(--white); line-height: 1.2; margin-bottom: 16px;
+    }
+    .section-title.dark { color: var(--navy); }
+    .section-sub { font-size: 15px; color: var(--gray); max-width: 560px; margin: 0 auto; line-height: 1.7; }
+    .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    /* ── GLOW SPOTLIGHT CARDS ── */
+    .service-card {
+      --base: 195;
+      --spread: 80;
+      --radius: 14;
+      --border: 1.5;
+      --size: 320;
+      --border-size: calc(var(--border) * 1px);
+      --spotlight-size: calc(var(--size) * 1px);
+      --hue: calc(var(--base) + (var(--xp, 0) * var(--spread)));
+      --backdrop: rgba(255,255,255,0.03);
+      --backup-border: rgba(255,255,255,0.08);
+
+      position: relative;
+      border-radius: calc(var(--radius) * 1px);
+      border: var(--border-size) solid var(--backup-border);
+      padding: 36px 28px;
+      transition: transform 0.3s;
+      background-image: radial-gradient(
+        var(--spotlight-size) var(--spotlight-size) at
+        calc(var(--x, -999) * 1px) calc(var(--y, -999) * 1px),
+        hsl(var(--hue) 100% 65% / 0.09),
+        transparent 100%
+      );
+      background-color: var(--backdrop);
+      background-attachment: fixed;
+    }
+    .service-card:hover { transform: translateY(-4px); }
+    .service-card::before,
+    .service-card::after {
+      pointer-events: none;
+      content: "";
+      position: absolute;
+      inset: calc(var(--border-size) * -1);
+      border: var(--border-size) solid transparent;
+      border-radius: calc(var(--radius) * 1px);
+      background-attachment: fixed;
+      background-size: calc(100% + (2 * var(--border-size))) calc(100% + (2 * var(--border-size)));
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+      -webkit-mask: linear-gradient(transparent, transparent), linear-gradient(white, white);
+      mask: linear-gradient(transparent, transparent), linear-gradient(white, white);
+      -webkit-mask-clip: padding-box, border-box;
+      mask-clip: padding-box, border-box;
+      -webkit-mask-composite: destination-in;
+      mask-composite: intersect;
+    }
+    .service-card::before {
+      background-image: radial-gradient(
+        calc(var(--spotlight-size) * 0.75) calc(var(--spotlight-size) * 0.75) at
+        calc(var(--x, -999) * 1px) calc(var(--y, -999) * 1px),
+        hsl(var(--hue) 100% 55% / 0.9),
+        transparent 100%
+      );
+      filter: brightness(2);
+    }
+    .service-card::after {
+      background-image: radial-gradient(
+        calc(var(--spotlight-size) * 0.4) calc(var(--spotlight-size) * 0.4) at
+        calc(var(--x, -999) * 1px) calc(var(--y, -999) * 1px),
+        hsl(0 0% 100% / 0.6),
+        transparent 100%
+      );
+    }
+    .service-icon {
+      width: 56px; height: 56px; border-radius: 50%;
+      border: 1.5px solid rgba(0,180,216,0.4);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 24px; font-size: 24px;
+    }
+    .service-name { font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 12px; }
+    .service-desc { font-size: 13px; color: var(--gray); line-height: 1.7; }
+
+    /* ── EXCURSIONES ── */
+    #excursiones { padding: 100px 60px; background: var(--light); }
+    .excursiones-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .exc-card {
+      background: white; border-radius: 12px; overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07); transition: all 0.3s;
+    }
+    .exc-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(0,0,0,0.13); }
+    .exc-img { position: relative; height: 220px; overflow: hidden; }
+    .exc-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+    .exc-card:hover .exc-img img { transform: scale(1.06); }
+    .exc-price-badge {
+      position: absolute; top: 16px; right: 16px;
+      background: var(--accent2); color: white; font-size: 18px; font-weight: 800;
+      padding: 8px 16px; border-radius: 8px;
+    }
+    .exc-duration {
+      position: absolute; bottom: 16px; left: 16px;
+      background: rgba(10,22,40,0.85); color: white; font-size: 12px; font-weight: 600;
+      padding: 5px 12px; border-radius: 20px; letter-spacing: 1px;
+    }
+    .exc-body { padding: 24px; }
+    .exc-emoji { font-size: 28px; margin-bottom: 10px; display: block; }
+    .exc-name { font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+    .exc-desc { font-size: 13px; color: #718096; line-height: 1.65; margin-bottom: 16px; }
+    .exc-includes { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+    .exc-tag {
+      background: rgba(0,180,216,0.1); color: var(--accent);
+      font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 20px;
+    }
+    .exc-cta {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 16px; border-top: 1px solid #edf2f7;
+    }
+    .exc-ideal { font-size: 12px; color: #a0aec0; }
+    .exc-btn {
+      background: var(--navy); color: white; font-size: 12px; font-weight: 700;
+      letter-spacing: 1px; text-transform: uppercase; padding: 9px 20px;
+      border-radius: 30px; text-decoration: none; transition: background 0.2s;
+    }
+    .exc-btn:hover { background: var(--accent2); }
+
+    /* ── INCLUYE ── */
+    #incluye { background: var(--navy-mid); padding: 80px 60px; }
+    .incluye-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 50px; }
+    .incluye-item {
+      display: flex; gap: 18px; align-items: flex-start;
+      background: rgba(255,255,255,0.04); border-radius: 12px;
+      padding: 28px; border: 1px solid rgba(255,255,255,0.06);
+    }
+    .incluye-icon { font-size: 32px; flex-shrink: 0; }
+    .incluye-title { font-size: 15px; font-weight: 700; color: white; margin-bottom: 6px; }
+    .incluye-text { font-size: 13px; color: var(--gray); line-height: 1.6; }
+
+    /* ── HORARIOS ── */
+    #horarios { padding: 100px 60px; }
+    .horarios-content { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .horarios-img { height: 480px; border-radius: 12px; overflow: hidden; }
+    .horarios-img img { width: 100%; height: 100%; object-fit: cover; }
+    .horario-badge {
+      display: flex; align-items: center; gap: 14px;
+      background: var(--navy); color: white; padding: 16px 20px;
+      border-radius: 10px; margin-bottom: 14px;
+    }
+    .horario-badge .badge-icon { font-size: 22px; flex-shrink: 0; }
+    .horario-label { font-size: 11px; color: var(--gray); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 3px; }
+    .horario-value { font-size: 15px; font-weight: 700; color: white; }
+
+    /* ── CONTACTO ── */
+    #contacto { background: var(--navy); padding: 100px 60px; }
+    .contacto-grid { display: flex; justify-content: center; }
+    .contacto-info { max-width: 600px; text-align: center; padding-top: 0; }
+    .contacto-info { padding-top: 20px; }
+    .contact-title { font-family: var(--font-serif); font-size: 36px; font-weight: 700; color: white; margin-bottom: 16px; }
+    .contact-sub { font-size: 15px; color: var(--gray); line-height: 1.7; margin-bottom: 40px; }
+    .contact-items { display: flex; flex-direction: column; gap: 16px; margin-bottom: 36px; }
+    .contact-item {
+      display: flex; gap: 16px; align-items: center;
+      padding: 18px 22px; background: rgba(255,255,255,0.04);
+      border-radius: 10px; border: 1px solid rgba(255,255,255,0.06);
+      text-decoration: none; transition: border-color 0.2s;
+    }
+    .contact-item:hover { border-color: var(--accent2); }
+    .contact-icon { font-size: 24px; flex-shrink: 0; }
+    .contact-item-label { font-size: 11px; color: var(--gray); letter-spacing: 1px; text-transform: uppercase; }
+    .contact-item-value { font-size: 15px; font-weight: 600; color: white; }
+    .wh-btn {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      background: #25d366; color: white; font-size: 15px; font-weight: 700;
+      padding: 16px 32px; border-radius: 40px; text-decoration: none;
+      transition: all 0.3s; letter-spacing: 0.5px;
+    }
+    .wh-btn:hover { background: #20bc5a; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(37,211,102,0.35); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #060e1c; padding: 50px 60px 30px;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px;
+    }
+    .footer-logo { font-size: 20px; font-weight: 800; letter-spacing: 2px; color: white; }
+    .footer-logo span { color: var(--accent2); }
+    .footer-tagline { font-size: 13px; color: var(--gray); margin-top: 6px; font-style: italic; }
+    .footer-links { display: flex; gap: 32px; }
+    .footer-links a { color: var(--gray); font-size: 13px; text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--accent2); }
+    .footer-copy { font-size: 12px; color: rgba(138,154,181,0.5); }
+    .footer-social { display: flex; gap: 12px; }
+    .footer-social a {
+      width: 38px; height: 38px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; text-decoration: none; transition: all 0.2s;
+    }
+    .footer-social a:hover { border-color: var(--accent2); transform: translateY(-2px); }
+
+    /* ── WAVE DIVIDER ── */
+    .wave-divider { line-height: 0; }
+    .wave-divider svg { display: block; }
+
+    /* ── SCROLL ANIMATIONS ── */
+    .fade-up { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── MOBILE MENU ── */
+    .mobile-menu {
+      display: none; position: fixed; inset: 0; z-index: 999;
+      background: var(--navy); padding: 80px 30px 40px;
+      flex-direction: column; gap: 8px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      color: white; font-size: 22px; font-weight: 600; text-decoration: none;
+      padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.08); transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--accent2); }
+    .mobile-close { position: absolute; top: 20px; right: 24px; background: none; border: none; color: white; font-size: 30px; cursor: pointer; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1100px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .excursiones-grid { grid-template-columns: repeat(2, 1fr); }
+      .incluye-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      nav.scrolled { padding: 12px 24px; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      #sobre { grid-template-columns: 1fr; padding: 70px 24px; gap: 40px; }
+      #servicios, #excursiones, #incluye, #horarios, #contacto { padding: 70px 24px; }
+      .stats-ribbon { grid-template-columns: repeat(3, 1fr); padding: 40px 24px; }
+      .hero-content { padding: 0 24px; }
+      .hero-scroll { left: 24px; }
+      .horarios-content { grid-template-columns: 1fr; gap: 40px; }
+      .horarios-img { height: 280px; }
+      .contacto-grid { flex-direction: column; align-items: center; }
+      footer { padding: 40px 24px 24px; flex-direction: column; align-items: flex-start; gap: 20px; }
+      .footer-links { flex-wrap: wrap; gap: 20px; }
+      /* fleet tiles: fix height & centering on tablet */
+      .about-imgs { height: auto !important; padding: 20px 0 40px; overflow: hidden; }
+    }
+    @media (max-width: 600px) {
+      .excursiones-grid, .services-grid, .incluye-grid { grid-template-columns: 1fr; }
+      .stats-ribbon { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+      .stat-num { font-size: 36px; }
+      .stat-label { font-size: 10px; letter-spacing: 1px; }
+      .hero-btns { flex-direction: column; align-items: flex-start; }
+      .hero-title { font-size: 36px; }
+      .hero-subtitle { font-size: 14px; }
+      /* fleet tiles smaller on mobile */
+      .about-imgs { padding: 10px 0 50px; overflow: hidden; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo"><img src="logo.png" alt="AquaJets Cullera"></a>
+  <ul class="nav-links">
+    <li><a href="#sobre">Nosotros</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#excursiones">Excursiones</a></li>
+    <li><a href="#incluye">Incluye</a></li>
+    <li><a href="#horarios">Horarios</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <a href="https://wa.link/khtll7" target="_blank" class="nav-cta">Reservar ahora</a>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="toggleMenu()">&#x2715;</button>
+  <a href="#sobre" onclick="toggleMenu()">Nosotros</a>
+  <a href="#servicios" onclick="toggleMenu()">Servicios</a>
+  <a href="#excursiones" onclick="toggleMenu()">Excursiones</a>
+  <a href="#incluye" onclick="toggleMenu()">Incluye</a>
+  <a href="#horarios" onclick="toggleMenu()">Horarios</a>
+  <a href="#contacto" onclick="toggleMenu()">Contacto</a>
+  <a href="https://wa.link/khtll7" target="_blank" style="background:var(--accent2);color:var(--navy);text-align:center;border-radius:40px;margin-top:16px;border:none;font-weight:800;padding:14px 0;">&#x1F4F2; Reservar ahora</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg">
+    <video autoplay muted loop playsinline preload="auto">
+      <source src="hero.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-content">
+    <span class="hero-tag">Cullera &middot; Valencia &middot; Mediterr&aacute;neo</span>
+    <h1 class="hero-title">
+      Vive el Mar<br/>en <span>Moto Acu&aacute;tica</span>
+    </h1>
+    <p class="hero-subtitle">
+      Excursiones guiadas sin licencia en la costa de Cullera. Adrenalina, fotos espectaculares y el Mediterr&aacute;neo en su m&aacute;xima potencia. Sin experiencia previa necesaria.
+    </p>
+    <div class="hero-btns">
+      <a href="#excursiones" class="btn-primary">Ver excursiones &rarr;</a>
+      <a href="https://wa.link/khtll7" target="_blank" class="btn-outline">&#x1F4F2; WhatsApp directo</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Descubrir</span>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-ribbon">
+  <div class="stat-item fade-up">
+    <div class="stat-num">5<span>+</span></div>
+    <div class="stat-label">Excursiones &uacute;nicas</div>
+  </div>
+  <div class="stat-item fade-up" style="transition-delay:.1s">
+    <div class="stat-num">100<span>%</span></div>
+    <div class="stat-label">Fotos incluidas</div>
+  </div>
+  <div class="stat-item fade-up" style="transition-delay:.2s">
+    <div class="stat-num">4</div>
+    <div class="stat-label">Idiomas atendidos</div>
+  </div>
+</div>
+
+<!-- SOBRE -->
+<section id="sobre">
+  <div class="about-imgs fade-up" style="display:flex; align-items:center; justify-content:center;">
+    <div class="fleet-tiles-inner" id="aboutFleetInner">
+      <div class="fleet-tile fleet-tile-left">
+        <img src="moto1.jpg" alt="Sea-Doo GTX blanca">
+      </div>
+      <div class="fleet-tile fleet-tile-mid">
+        <img src="moto2.jpg" alt="Sea-Doo GTX azul">
+      </div>
+      <div class="fleet-tile fleet-tile-right">
+        <img src="moto3.jpg" alt="Sea-Doo GTX naranja">
+      </div>
+    </div>
+  </div>
+  <div class="fade-up" style="transition-delay:.15s">
+    <span class="about-tag">Sobre Nosotros</span>
+    <h2 class="about-title">El referente en motos acu&aacute;ticas en Cullera</h2>
+    <p class="about-text">
+      AquaJets Cullera es el punto de referencia en excursiones en moto acu&aacute;tica y alquiler de embarcaciones en la costa valenciana. <em>&laquo;Sailing gives us life&raquo;</em> &mdash; llevamos a nuestros clientes a vivir el Mediterr&aacute;neo en su m&aacute;xima potencia.
+    </p>
+    <ul class="about-checks">
+      <li><span class="check-icon">&#x2713;</span> Sin licencia ni experiencia previa necesaria</li>
+      <li><span class="check-icon">&#x2713;</span> Monitor gu&iacute;a en todas las excursiones</li>
+      <li><span class="check-icon">&#x2713;</span> Fotos y chaleco homologado incluidos</li>
+      <li><span class="check-icon">&#x2713;</span> Atenci&oacute;n personalizada en 4 idiomas &#x1F1EA;&#x1F1F8; &#x1F1EC;&#x1F1E7; &#x1F1EE;&#x1F1F9; &#x1F1EB;&#x1F1F7;</li>
+    </ul>
+    <a href="https://wa.link/khtll7" target="_blank" class="btn-primary">Reserva ahora &rarr;</a>
+  </div>
+</section>
+
+<style>
+  .fleet-tiles-inner {
+    position:relative; width:420px; height:320px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .fleet-tile {
+    position:absolute; width:260px; height:190px;
+    border-radius:16px;
+    box-shadow:0 12px 40px rgba(0,0,0,0.18);
+    overflow:hidden; padding:0;
+    transition: transform 0.4s cubic-bezier(.34,1.56,.64,1), box-shadow 0.4s ease;
+    cursor:pointer;
+  }
+  .fleet-tile img { width:100%; height:100%; object-fit:cover; display:block; }
+
+  .fleet-tile-left  { transform:rotate(-7deg) translate(-170px, 12px); z-index:30; }
+  .fleet-tile-mid   { transform:rotate(5deg)  translate(0px, 0px);     z-index:20; }
+  .fleet-tile-right { transform:rotate(-5deg) translate(190px, 22px);  z-index:10; }
+
+  .fleet-tile-left:hover  { transform:rotate(0deg)  translate(-178px, -8px); z-index:40; box-shadow:0 20px 60px rgba(0,180,216,0.25); }
+  .fleet-tile-mid:hover   { transform:rotate(0deg)  translate(0px, -16px);   z-index:40; box-shadow:0 20px 60px rgba(0,180,216,0.25); }
+  .fleet-tile-right:hover { transform:rotate(0deg)  translate(196px, 6px);   z-index:40; box-shadow:0 20px 60px rgba(0,180,216,0.25); }
+
+  .fleet-tiles-inner.animated .fleet-tile-left  { animation: tileInLeft  0.7s cubic-bezier(.34,1.56,.64,1) forwards; }
+  .fleet-tiles-inner.animated .fleet-tile-mid   { animation: tileInMid   0.7s 0.15s cubic-bezier(.34,1.56,.64,1) forwards; }
+  .fleet-tiles-inner.animated .fleet-tile-right { animation: tileInRight 0.7s 0.3s  cubic-bezier(.34,1.56,.64,1) forwards; }
+
+  @keyframes tileInLeft  { from{transform:rotate(0deg) translate(0,0); opacity:0;} to{transform:rotate(-7deg) translate(-170px,12px); opacity:1;} }
+  @keyframes tileInMid   { from{transform:rotate(0deg) translate(0,0); opacity:0;} to{transform:rotate(5deg)  translate(0,0);    opacity:1;} }
+  @keyframes tileInRight { from{transform:rotate(0deg) translate(0,0); opacity:0;} to{transform:rotate(-5deg) translate(190px,22px); opacity:1;} }
+
+  @media(max-width:768px) {
+    .fleet-tiles-inner { width:320px; height:220px; }
+    .fleet-tile { width:190px; height:140px; }
+    .fleet-tile-left  { transform:rotate(-7deg) translate(-120px, 10px); }
+    .fleet-tile-mid   { transform:rotate(5deg)  translate(0px, 0px); }
+    .fleet-tile-right { transform:rotate(-5deg) translate(132px, 18px); }
+    .fleet-tile-left:hover  { transform:rotate(0deg) translate(-125px, -6px); }
+    .fleet-tile-mid:hover   { transform:rotate(0deg) translate(0px, -12px); }
+    .fleet-tile-right:hover { transform:rotate(0deg) translate(136px, 4px); }
+    @keyframes tileInLeft  { from{transform:rotate(0deg) translate(0,0); opacity:0;} to{transform:rotate(-7deg) translate(-120px,10px); opacity:1;} }
+    @keyframes tileInRight { from{transform:rotate(0deg) translate(0,0); opacity:0;} to{transform:rotate(-5deg) translate(132px,18px); opacity:1;} }
+  }
+  @media(max-width:480px) {
+    .fleet-tiles-inner { width:260px; height:190px; }
+    .fleet-tile { width:155px; height:115px; }
+    .fleet-tile-left  { transform:rotate(-7deg) translate(-96px, 8px); }
+    .fleet-tile-mid   { transform:rotate(5deg)  translate(0px, 0px); }
+    .fleet-tile-right { transform:rotate(-5deg) translate(106px, 16px); }
+    .fleet-tile-left:hover  { transform:rotate(0deg) translate(-100px, -5px); }
+    .fleet-tile-mid:hover   { transform:rotate(0deg) translate(0px, -10px); }
+    .fleet-tile-right:hover { transform:rotate(0deg) translate(110px, 4px); }
+    @keyframes tileInLeft  { from{transform:rotate(0deg) translate(0,0); opacity:0;} to{transform:rotate(-7deg) translate(-96px,8px); opacity:1;} }
+    @keyframes tileInRight { from{transform:rotate(0deg) translate(0,0); opacity:0;} to{transform:rotate(-5deg) translate(106px,16px); opacity:1;} }
+  }
+</style>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <div class="section-header fade-up">
+    <span class="section-tag">Servicios</span>
+    <h2 class="section-title">&iquest;Qu&eacute; ofrecemos?</h2>
+    <p class="section-sub">Diferentes experiencias para todos los gustos: desde la emoci&oacute;n m&aacute;s pura hasta el plan completo con almuerzo incluido.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card fade-up">
+      <div class="service-icon">&#x1F6A4;</div>
+      <div class="service-name">Excursiones guiadas</div>
+      <div class="service-desc">Rutas con monitor por la bah&iacute;a y el Faro de Cullera. Sin licencia, con fotos incluidas y ba&ntilde;o opcional.</div>
+    </div>
+    <div class="service-card fade-up" style="transition-delay:.1s">
+      <div class="service-icon">&#x1F305;</div>
+      <div class="service-name">Amanecer &amp; Atardecer</div>
+      <div class="service-desc">Experiencias &uacute;nicas con la luz dorada del Mediterr&aacute;neo. Fotos espectaculares al amanecer o al caer el sol.</div>
+    </div>
+    <div class="service-card fade-up" style="transition-delay:.2s">
+      <div class="service-icon">&#x1F37D;&#xFE0F;</div>
+      <div class="service-name">Excursi&oacute;n + Almuerzo</div>
+      <div class="service-desc">Recorrido por la costa de Cullera + almuerzo incluido en El Perell&oacute;. El plan completo en 2 horas.</div>
+    </div>
+    <div class="service-card fade-up" style="transition-delay:.3s">
+      <div class="service-icon">&#x2693;</div>
+      <div class="service-name">Alquiler de barco</div>
+      <div class="service-desc">Embarcaciones sin licencia para familias y grupos, y con licencia para mayor autonom&iacute;a y potencia.</div>
+    </div>
+  </div>
+</section>
+
+<!-- WAVE -->
+<div class="wave-divider" style="background:var(--navy)">
+  <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg"><path fill="#f0f4fa" d="M0,40 C360,80 1080,0 1440,40 L1440,60 L0,60 Z"/></svg>
+</div>
+
+<!-- EXCURSIONES -->
+<section id="excursiones">
+  <div class="section-header fade-up">
+    <span class="section-tag" style="background:rgba(26,58,107,.1);color:var(--blue);border-color:rgba(26,58,107,.2);">Excursiones</span>
+    <h2 class="section-title dark">&iquest;Qu&eacute; tipo de excursi&oacute;n te viene mejor?</h2>
+    <p class="section-sub" style="color:#718096;">Elige la experiencia perfecta seg&uacute;n tu tiempo y tus ganas de aventura.</p>
+  </div>
+  <div class="excursiones-grid">
+
+    <!-- Bah&iacute;a -->
+    <div class="exc-card fade-up">
+      <div class="exc-img">
+        <img src="exc_1.jpg" alt="Excursi&oacute;n Bah&iacute;a" />
+        <span class="exc-price-badge">80&euro;</span>
+        <span class="exc-duration">&#x23F1; 40 min</span>
+      </div>
+      <div class="exc-body">
+        <span class="exc-emoji">&#x1F31E;</span>
+        <div class="exc-name">Excursi&oacute;n Bah&iacute;a</div>
+        <div class="exc-desc">La opci&oacute;n m&aacute;s accesible y perfecta para una primera vez. Recorrido por la bah&iacute;a de Cullera con monitor incluido.</div>
+        <div class="exc-includes">
+          <span class="exc-tag">&#x1F4F8; Fotos</span>
+          <span class="exc-tag">&#x1F3CA; Ba&ntilde;o opcional</span>
+          <span class="exc-tag">&#x1F9BA; Chaleco</span>
+        </div>
+        <div class="exc-cta">
+          <span class="exc-ideal">Ideal: parejas &middot; primeras veces</span>
+          <a href="https://wa.link/khtll7" target="_blank" class="exc-btn">Reservar</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Faro -->
+    <div class="exc-card fade-up" style="transition-delay:.1s">
+      <div class="exc-img">
+        <img src="exc_4.jpg" alt="Excursi&oacute;n Faro" />
+        <span class="exc-price-badge">100&euro;</span>
+        <span class="exc-duration">&#x23F1; 1 hora</span>
+      </div>
+      <div class="exc-body">
+        <span class="exc-emoji">&#x1F5FC;</span>
+        <div class="exc-name">Excursi&oacute;n Faro &#x2B50; Estrella</div>
+        <div class="exc-desc">La excursi&oacute;n m&aacute;s completa. Llegais al Faro de Cullera, os d&aacute;is un ba&ntilde;o y os hacemos fotos incre&iacute;bles.</div>
+        <div class="exc-includes">
+          <span class="exc-tag">&#x1F4F8; Fotos</span>
+          <span class="exc-tag">&#x1F3CA; Ba&ntilde;o opcional</span>
+          <span class="exc-tag">&#x1F9BA; Chaleco</span>
+        </div>
+        <div class="exc-cta">
+          <span class="exc-ideal">Ideal: grupos &middot; despedidas</span>
+          <a href="https://wa.link/khtll7" target="_blank" class="exc-btn">Reservar</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Puesta del Sol -->
+    <div class="exc-card fade-up" style="transition-delay:.2s">
+      <div class="exc-img">
+        <img src="exc_2.jpg" alt="Puesta de Sol" />
+        <span class="exc-price-badge">150&euro;</span>
+        <span class="exc-duration">&#x23F1; 1h 30min</span>
+      </div>
+      <div class="exc-body">
+        <span class="exc-emoji">&#x1F307;</span>
+        <div class="exc-name">Puesta del Sol</div>
+        <div class="exc-desc">Recorre la costa de Cullera con la luz del atardecer. Fotos espectaculares al caer el sol sobre el Mediterr&aacute;neo.</div>
+        <div class="exc-includes">
+          <span class="exc-tag">&#x1F4F8; Fotos</span>
+          <span class="exc-tag">&#x1F556; Salida 19:30</span>
+          <span class="exc-tag">&#x1F9BA; Chaleco</span>
+        </div>
+        <div class="exc-cta">
+          <span class="exc-ideal">Ideal: parejas &middot; rom&aacute;nticos</span>
+          <a href="https://wa.link/khtll7" target="_blank" class="exc-btn">Reservar</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Amanecer -->
+    <div class="exc-card fade-up" style="transition-delay:.3s">
+      <div class="exc-img">
+        <img src="exc_3.jpg" alt="Amanecer" />
+        <span class="exc-price-badge">150&euro;</span>
+        <span class="exc-duration">&#x23F1; 1h 30min</span>
+      </div>
+      <div class="exc-body">
+        <span class="exc-emoji">&#x1F304;</span>
+        <div class="exc-name">Excursi&oacute;n Amanecer</div>
+        <div class="exc-desc">La m&aacute;s especial. Luz dorada del amanecer sobre el Mediterr&aacute;neo. Recorrido al Faro de Cullera al despertar del d&iacute;a.</div>
+        <div class="exc-includes">
+          <span class="exc-tag">&#x1F4F8; Fotos</span>
+          <span class="exc-tag">&#x1F465; M&iacute;n. 4 motos</span>
+          <span class="exc-tag">&#x1F9BA; Chaleco</span>
+        </div>
+        <div class="exc-cta">
+          <span class="exc-ideal">Ideal: grupos &middot; momentos &uacute;nicos</span>
+          <a href="https://wa.link/khtll7" target="_blank" class="exc-btn">Reservar</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Almuerzo -->
+    <div class="exc-card fade-up" style="transition-delay:.4s">
+      <div class="exc-img">
+        <img src="exc_5.jpg" alt="Excursi&oacute;n con Almuerzo" />
+        <span class="exc-price-badge">230&euro;</span>
+        <span class="exc-duration">&#x23F1; 2 horas</span>
+      </div>
+      <div class="exc-body">
+        <span class="exc-emoji">&#x1F37D;&#xFE0F;</span>
+        <div class="exc-name">Excursi&oacute;n + Almuerzo</div>
+        <div class="exc-desc">La experiencia m&aacute;s completa: mar y gastronom&iacute;a en un solo plan. Recorrido + almuerzo en El Perell&oacute;. Salida 9:00 am.</div>
+        <div class="exc-includes">
+          <span class="exc-tag">&#x1F4F8; Fotos</span>
+          <span class="exc-tag">&#x1F374; Almuerzo inc.</span>
+          <span class="exc-tag">&#x1F558; Salida 9:00am</span>
+        </div>
+        <div class="exc-cta">
+          <span class="exc-ideal">Ideal: grupos &middot; d&iacute;a completo</span>
+          <a href="https://wa.link/khtll7" target="_blank" class="exc-btn">Reservar</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA Card -->
+    <div class="exc-card fade-up" style="transition-delay:.5s;background:var(--navy);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px;">
+      <div style="font-size:52px;margin-bottom:20px;">&#x1F919;</div>
+      <div style="font-family:var(--font-serif);font-size:22px;font-weight:700;color:white;margin-bottom:12px;">&iquest;Tienes dudas?</div>
+      <div style="font-size:14px;color:var(--gray);line-height:1.7;margin-bottom:28px;">Nuestro equipo te ayuda a elegir la excursi&oacute;n perfecta por WhatsApp. &iexcl;En minutos resolvemos todo!</div>
+      <a href="https://wa.link/khtll7" target="_blank" class="wh-btn" style="width:100%;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        Chatear con el equipo
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- WAVE -->
+<div class="wave-divider" style="background:var(--light)">
+  <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg"><path fill="#0d1f3c" d="M0,20 C480,60 960,0 1440,30 L1440,60 L0,60 Z"/></svg>
+</div>
+
+<!-- INCLUYE -->
+<section id="incluye">
+  <div class="section-header fade-up">
+    <span class="section-tag">Siempre incluido</span>
+    <h2 class="section-title">Todo lo que necesitas est&aacute; cubierto</h2>
+    <p class="section-sub">Cada excursi&oacute;n en moto acu&aacute;tica incluye de serie todo lo necesario para una experiencia segura y espectacular.</p>
+  </div>
+  <div class="incluye-grid">
+    <div class="incluye-item fade-up">
+      <span class="incluye-icon">&#x1F4F8;</span>
+      <div>
+        <div class="incluye-title">Fotos incluidas</div>
+        <div class="incluye-text">Nuestro equipo captura tus mejores momentos sobre el agua. Recuerdo garantizado de tu experiencia.</div>
+      </div>
+    </div>
+    <div class="incluye-item fade-up" style="transition-delay:.1s">
+      <span class="incluye-icon">&#x1F9BA;</span>
+      <div>
+        <div class="incluye-title">Chaleco homologado</div>
+        <div class="incluye-text">Chaleco salvavidas homologado incluido para todos los participantes. Seguridad ante todo.</div>
+      </div>
+    </div>
+    <div class="incluye-item fade-up" style="transition-delay:.2s">
+      <span class="incluye-icon">&#x1F468;&#x200D;✈️</span>
+      <div>
+        <div class="incluye-title">Monitor gu&iacute;a</div>
+        <div class="incluye-text">Todas las excursiones cuentan con un monitor experto que gu&iacute;a el recorrido en todo momento.</div>
+      </div>
+    </div>
+    <div class="incluye-item fade-up" style="transition-delay:.3s">
+      <span class="incluye-icon">&#x1F4CB;</span>
+      <div>
+        <div class="incluye-title">Briefing de seguridad</div>
+        <div class="incluye-text">Antes de salir, explicamos todo. En 5 minutos ya est&aacute;s manejando como un profesional.</div>
+      </div>
+    </div>
+    <div class="incluye-item fade-up" style="transition-delay:.4s">
+      <span class="incluye-icon">&#x1F3CA;</span>
+      <div>
+        <div class="incluye-title">Ba&ntilde;o opcional</div>
+        <div class="incluye-text">&iquest;Quieres refrescarte en el Mediterr&aacute;neo? Todas las rutas incluyen parada de ba&ntilde;o opcional.</div>
+      </div>
+    </div>
+    <div class="incluye-item fade-up" style="transition-delay:.5s">
+      <span class="incluye-icon">&#x2705;</span>
+      <div>
+        <div class="incluye-title">Sin licencia necesaria</div>
+        <div class="incluye-text">Ninguna de las excursiones guiadas requiere licencia n&aacute;utica ni experiencia previa. &iexcl;Para todos!</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WAVE -->
+<div class="wave-divider" style="background:var(--navy-mid)">
+  <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg"><path fill="#ffffff" d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z"/></svg>
+</div>
+
+<!-- HORARIOS -->
+<section id="horarios">
+  <div class="horarios-content">
+    <div class="horarios-img fade-up">
+      <img src="horarios_img.jpg"
+        onerror="this.src='https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=800&q=80'"
+        alt="Puerto de Cullera" />
+    </div>
+    <div class="fade-up" style="transition-delay:.15s">
+      <span class="about-tag">Operativa</span>
+      <h2 class="about-title">Horarios y temporada</h2>
+      <p class="about-text">Operamos todos los d&iacute;as durante la temporada, siempre que el mar y el tiempo lo permitan. Si hay condiciones adversas, cancelamos sin coste y buscamos otro d&iacute;a.</p>
+      <div class="horario-badge">
+        <span class="badge-icon">&#x1F4C5;</span>
+        <div>
+          <div class="horario-label">Temporada</div>
+          <div class="horario-value">Semana Santa &rarr; finales de octubre</div>
+        </div>
+      </div>
+      <div class="horario-badge">
+        <span class="badge-icon">&#x23F0;</span>
+        <div>
+          <div class="horario-label">Horario de salidas</div>
+          <div class="horario-value">9:00 am &rarr; 19:30 &middot; Todos los d&iacute;as</div>
+        </div>
+      </div>
+      <div class="horario-badge">
+        <span class="badge-icon">&#x1F305;</span>
+        <div>
+          <div class="horario-label">Excursi&oacute;n Amanecer</div>
+          <div class="horario-value">Horario a consultar &middot; M&iacute;nimo 4 motos</div>
+        </div>
+      </div>
+      <div class="horario-badge" style="margin-bottom:0">
+        <span class="badge-icon">&#x1F4CD;</span>
+        <div>
+          <div class="horario-label">Punto de encuentro</div>
+          <div class="horario-value"><a href="https://maps.app.goo.gl/CDmcnoLixkdtH9Zt8" target="_blank" style="color:inherit; text-decoration:underline; text-underline-offset:3px;">Ver en Google Maps</a></div>
+        </div>
+      </div>
+      <div style="margin-top:28px">
+        <p style="font-size:13px;color:#4a5568;background:#f7fafc;padding:14px 18px;border-radius:8px;border-left:3px solid var(--accent2);line-height:1.6;">
+          &#x1F4CB; <strong>Recuerda traer:</strong> DNI / NIE / Pasaporte + ropa de ba&ntilde;o
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="contacto-grid">
+    <div class="contacto-info fade-up">
+      <span class="section-tag">Contacto</span>
+      <h2 class="contact-title">&iquest;Es hora de la aventura?</h2>
+      <p class="contact-sub">Esch&iacute;benos por WhatsApp y nuestro equipo responde en minutos para ayudarte a cerrar la reserva perfecta. Atendemos en &#x1F1EA;&#x1F1F8; &#x1F1EC;&#x1F1E7; &#x1F1EE;&#x1F1F9; &#x1F1EB;&#x1F1F7;</p>
+      <div class="contact-items">
+        <a href="https://wa.link/khtll7" target="_blank" class="contact-item">
+          <span class="contact-icon">&#x1F4DE;</span>
+          <div>
+            <div class="contact-item-label">WhatsApp / Tel&eacute;fono</div>
+            <div class="contact-item-value">+34 624 07 78 99</div>
+          </div>
+        </a>
+        <a href="https://instagram.com/aquajets_cullera" target="_blank" class="contact-item">
+          <span class="contact-icon">&#x1F4F8;</span>
+          <div>
+            <div class="contact-item-label">Instagram</div>
+            <div class="contact-item-value">@aquajets_cullera</div>
+          </div>
+        </a>
+        <a href="https://maps.app.goo.gl/CDmcnoLixkdtH9Zt8" target="_blank" class="contact-item">
+          <span class="contact-icon">&#x1F4CD;</span>
+          <div>
+            <div class="contact-item-label">Direcci&oacute;n</div>
+            <div class="contact-item-value">Ver ubicaci&oacute;n en Google Maps</div>
+          </div>
+        </a>
+      </div>
+      <a href="https://wa.link/khtll7" target="_blank" class="wh-btn">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        Escribir por WhatsApp
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">AQUA<span>JETS</span> CULLERA</div>
+    <div class="footer-tagline">&laquo;Sailing gives us life&raquo; &middot; Cullera, Valencia</div>
+  </div>
+  <div class="footer-links">
+    <a href="#sobre">Nosotros</a>
+    <a href="#excursiones">Excursiones</a>
+    <a href="#horarios">Horarios</a>
+    <a href="#contacto">Contacto</a>
+    <a href="https://instagram.com/aquajets_cullera" target="_blank">Instagram</a>
+  </div>
+  <div class="footer-social">
+    <a href="https://instagram.com/aquajets_cullera" target="_blank" title="Instagram">&#x1F4F8;</a>
+    <a href="https://wa.link/khtll7" target="_blank" title="WhatsApp">&#x1F4AC;</a>
+  </div>
+  <div class="footer-copy">&copy; 2026 AquaJets Cullera &middot; aquajetscullera.es</div>
+</footer>
+
+<script>
+  // Navbar scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Mobile menu toggle
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+
+  // Scroll-triggered fade-up animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // ── FLEET TILES: trigger entry animation on scroll ──
+  const fleetObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('animated'); fleetObserver.unobserve(e.target); }
+    });
+  }, { threshold: 0.3 });
+  const fleetInner = document.getElementById('aboutFleetInner');
+  if (fleetInner) fleetObserver.observe(fleetInner);
+
+  // ── GLOW SPOTLIGHT: track pointer and update CSS vars ──
+  document.addEventListener('pointermove', (e) => {
+    const xp = (e.clientX / window.innerWidth).toFixed(4);
+    const yp = (e.clientY / window.innerHeight).toFixed(4);
+    document.documentElement.style.setProperty('--x', e.clientX.toFixed(2));
+    document.documentElement.style.setProperty('--y', e.clientY.toFixed(2));
+    document.documentElement.style.setProperty('--xp', xp);
+    document.documentElement.style.setProperty('--yp', yp);
+  });
+
+</script>
+
+<!-- ── BOTÓN FLOTANTE WHATSAPP ── -->
+<style>
+  .wa-float {
+    position: fixed;
+    left: 24px;
+    bottom: 36px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    animation: wa-bounce 2.8s ease-in-out infinite;
+  }
+  .wa-float-btn {
+    width: 58px; height: 58px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #25d366 0%, #1da851 100%);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.55), inset 0 1px 0 rgba(255,255,255,0.35);
+    border: 1.5px solid rgba(255,255,255,0.25);
+    flex-shrink: 0;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .wa-float-btn::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 48%;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.28), transparent);
+    border-radius: 50% 50% 0 0; pointer-events: none;
+  }
+  .wa-float-btn svg { position: relative; z-index: 1; }
+  .wa-float-label {
+    background: rgba(10,22,40,0.88);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: white;
+    font-size: 13px; font-weight: 600; letter-spacing: 0.5px;
+    padding: 8px 14px; border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: opacity 0.25s, transform 0.25s;
+    pointer-events: none;
+  }
+  .wa-float:hover .wa-float-label {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .wa-float:hover .wa-float-btn {
+    transform: scale(1.1);
+    box-shadow: 0 8px 28px rgba(37,211,102,0.7), inset 0 1px 0 rgba(255,255,255,0.4);
+  }
+  /* Ping pulse ring */
+  .wa-float-btn::after {
+    content: '';
+    position: absolute; inset: -4px;
+    border-radius: 50%;
+    border: 2px solid rgba(37,211,102,0.5);
+    animation: wa-ping 2.2s ease-out infinite;
+  }
+  @keyframes wa-ping {
+    0%   { transform: scale(1); opacity: 0.7; }
+    70%  { transform: scale(1.4); opacity: 0; }
+    100% { transform: scale(1.4); opacity: 0; }
+  }
+  @keyframes wa-bounce {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-6px); }
+  }
+  .wa-float:hover { animation-play-state: paused; }
+</style>
+
+<a href="https://wa.link/khtll7" target="_blank" class="wa-float" aria-label="Contactar por WhatsApp">
+  <div class="wa-float-btn">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+    </svg>
+  </div>
+  <span class="wa-float-label">💬 Escríbenos ahora</span>
+</a>
+
+</body>
+</html>
